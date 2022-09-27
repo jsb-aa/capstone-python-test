@@ -4,10 +4,11 @@ from sqlalchemy import desc
 
 class Deck(db.Model):
     __tablename__ = 'decks'
-    
+    __table_args__ = {'schema': 'helloflask'}
+
     id = db.Column(db.Integer, primary_key=True)
-    owner_id = db.Column(db.Integer,  db.ForeignKey('users.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    owner_id = db.Column(db.Integer,  db.ForeignKey('helloflask.users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('helloflask.users.id'), nullable=False)
     share = db.Column(db.Boolean, nullable=False, default=False)
     name = db.Column(db.String(50), nullable=False)
     about = db.Column(db.Text)
@@ -18,10 +19,10 @@ class Deck(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now(), onupdate=datetime.now)
     user = db.relationship("User",  foreign_keys=[user_id], back_populates="deck_user")
     owner = db.relationship("User", foreign_keys=[owner_id], back_populates="deck_owner")
-    
+
     cards = db.relationship("Card", back_populates="deck", order_by="asc(Card.id)", cascade="all, delete")
     study_sessions = db.relationship("StudySession", back_populates="deck", cascade="all, delete")
-    
+
     def to_dict(self):
         return {
             "id": self.id,

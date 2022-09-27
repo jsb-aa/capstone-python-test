@@ -6,6 +6,7 @@ from datetime import datetime
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
+    __table_args__ = {'schema': 'helloflask'}
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
@@ -14,12 +15,12 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
-    
+
     deck_user = db.relationship("Deck",
                                 foreign_keys='Deck.user_id',
                                 back_populates="user",
                                 lazy='dynamic')
-    
+
     deck_owner = db.relationship("Deck",
                                  foreign_keys='Deck.owner_id',
                                  back_populates="owner",
