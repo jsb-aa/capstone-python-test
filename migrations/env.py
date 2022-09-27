@@ -46,13 +46,25 @@ def run_migrations_offline():
 
     """
     url = config.get_main_option("sqlalchemy.url")
-    context.configure(
-        # url=url, target_metadata=target_metadata, literal_binds=True, include_schemas=True, version_table_schema='helloflask'
-        url=url, target_metadata=target_metadata, literal_binds=True
 
+    # connectable = config.attributes.get('connection', None)
+
+    connectable = engine_from_config(
+        config.get_section(config.config_ini_section),
+        prefix='sqlalchemy.',
+        poolclass=pool.NullPool,
     )
 
+    with connectable.connect() as connection:
+        context.configure(
+            connection=connection, url=url, target_metadata=target_metadata, literal_binds=True, include_schemas=True, version_table_schema='helloflask'
+            # url=url, target_metadata=target_metadata, literal_binds=True
+        )
+
+        connection.execute('CREATE SCHEMA IF NOT EXISTS helloflask')
+
     with context.begin_transaction():
+        context.execute('SET search_path TO helloflask')
         context.run_migrations()
 
 
@@ -85,10 +97,15 @@ def run_migrations_online():
             connection=connection,
             target_metadata=target_metadata,
             process_revision_directives=process_revision_directives,
+            # include_schemas=True,
+            # version_table_schema='helloflask'
             **current_app.extensions['migrate'].configure_args
         )
 
+        connection.execute('CREATE SCHEMA IF NOT EXISTS helloflask')
+
         with context.begin_transaction():
+            context.execute('SET search_path TO helloflask')
             context.run_migrations()
 
 
