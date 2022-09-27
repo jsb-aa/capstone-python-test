@@ -4,11 +4,11 @@ from sqlalchemy import desc
 
 class Deck(db.Model):
     __tablename__ = 'decks'
-    __table_args__ = {'schema': 'helloflask'}
+    __table_args__ = {'schema': 'goodbyeflask'}
 
     id = db.Column(db.Integer, primary_key=True)
-    owner_id = db.Column(db.Integer,  db.ForeignKey('helloflask.users.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('helloflask.users.id'), nullable=False)
+    owner_id = db.Column(db.Integer,  db.ForeignKey('goodbyeflask.users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('goodbyeflask.users.id'), nullable=False)
     share = db.Column(db.Boolean, nullable=False, default=False)
     name = db.Column(db.String(50), nullable=False)
     about = db.Column(db.Text)
