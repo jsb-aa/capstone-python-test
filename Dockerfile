@@ -4,7 +4,7 @@ WORKDIR /react-app
 COPY react-app/. .
 
 # You have to set this because it should be set during build time.
-ENV REACT_APP_BASE_URL=https://burn-midnight-oil.herokuapp.com/
+ENV REACT_APP_BASE_URL=https://test-docker-flask-react.onrender.com
 
 # Build our React App
 RUN npm install
@@ -26,6 +26,10 @@ COPY --from=build-stage /react-app/build/* app/static/
 # Install Python Dependencies
 RUN pip install -r requirements.txt
 RUN pip install psycopg2
+
+# Migrate and seed database
+RUN flask db upgrade
+RUN flask seed all
 
 # Run flask environment
 CMD gunicorn app:app
