@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "recharts": "^2.1.10"
+  },
+  "scripts": {
+    "migrate-seed": "flask db migrate && flask run seed"
   }
 }

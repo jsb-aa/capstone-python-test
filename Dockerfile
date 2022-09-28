@@ -28,7 +28,8 @@ RUN pip install -r requirements.txt
 RUN pip install psycopg2
 
 # Migrate and seed database
-RUN build.sh
+RUN npm run migrate-seed
+# RUN build.sh
 # RUN flask db upgrade
 # RUN flask seed all
 
