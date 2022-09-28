@@ -7,10 +7,10 @@ from vose_sampler import VoseAlias
 
 class StudySession(db.Model):
     __tablename__ = 'study_sessions'
-    __table_args__ = {'schema': 'helloflask'}
+    __table_args__ = {'schema': 'dockerrender'}
 
     id = db.Column(db.Integer, primary_key=True)
-    deck_id = db.Column(db.Integer, db.ForeignKey('helloflask.decks.id'), nullable=False)
+    deck_id = db.Column(db.Integer, db.ForeignKey('dockerrender.decks.id'), nullable=False)
     card_one = db.Column(db.Integer, default=0)
     card_two = db.Column(db.Integer, default=0)
     card_three = db.Column(db.Integer, default=0)

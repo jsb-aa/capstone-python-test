@@ -6,7 +6,7 @@ from datetime import datetime
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
-    __table_args__ = {'schema': 'helloflask'}
+    __table_args__ = {'schema': 'dockerrender'}
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)

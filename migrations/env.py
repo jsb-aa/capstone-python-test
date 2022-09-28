@@ -57,14 +57,14 @@ def run_migrations_offline():
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, url=url, target_metadata=target_metadata, literal_binds=True, include_schemas=True, version_table_schema='helloflask'
+            connection=connection, url=url, target_metadata=target_metadata, literal_binds=True, include_schemas=True, version_table_schema='dockerrender'
             # url=url, target_metadata=target_metadata, literal_binds=True
         )
 
-        connection.execute('CREATE SCHEMA IF NOT EXISTS helloflask')
+        connection.execute('CREATE SCHEMA IF NOT EXISTS dockerrender')
 
     with context.begin_transaction():
-        context.execute('SET search_path TO helloflask')
+        context.execute('SET search_path TO dockerrender')
         context.run_migrations()
 
 
@@ -98,14 +98,14 @@ def run_migrations_online():
             target_metadata=target_metadata,
             process_revision_directives=process_revision_directives,
             # include_schemas=True,
-            # version_table_schema='helloflask'
+            # version_table_schema='dockerrender'
             **current_app.extensions['migrate'].configure_args
         )
 
-        connection.execute('CREATE SCHEMA IF NOT EXISTS helloflask')
+        connection.execute('CREATE SCHEMA IF NOT EXISTS dockerrender')
 
         with context.begin_transaction():
-            context.execute('SET search_path TO helloflask')
+            context.execute('SET search_path TO dockerrender')
             context.run_migrations()
 
 
