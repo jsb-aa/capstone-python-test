@@ -16,6 +16,7 @@ FROM python:3.9
 ENV FLASK_APP=app
 ENV FLASK_ENV=production
 ENV SQLALCHEMY_ECHO=True
+ENV DATABASE_URL=postgres://express_prefix_test_db_user:88tLvkUyzgHKCEcY5uYeBr7vwJ0cpGlh@dpg-ccmpc7pa6gdh5kdavlgg-a/express_prefix_test_db
 
 EXPOSE 8000
 
